@@ -20,8 +20,6 @@ class Client():
             else 'wss://listen.moe/gateway'
         self.handler = None
         self._loop = loop or asyncio.get_event_loop()
-        self.now_playing = None
-        self.tries = 1
         self._ws = None
         self._session = aiosession if aiosession \
             else aiohttp.ClientSession(loop=self._loop)
