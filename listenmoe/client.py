@@ -89,11 +89,11 @@ class Client():
     async def _send_pings(self, interval=45):
         while self.connected:
             await asyncio.sleep(interval)
+            log.debug('Sending heartbeat to listen.moe')            
             await self._send(op=9)
 
     async def _send(self, **data):
         if self.connected:
-            log.debug('Sending heartbeat to listen.moe')
             await self._ws.send_json(data)
 
     async def _websocket_closed(self, code: int = None, reason: str = None):
