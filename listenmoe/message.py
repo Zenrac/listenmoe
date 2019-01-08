@@ -136,8 +136,6 @@ class SongUpdate(Message):
 
 
 def wrap_message(data):
-    print("euhhhhhhhhhhhhhhhhhhhhhhhhhh")
-    print(data)
     op = data['op']
     if op == 1 and data['t'] == 'TRACK_UPDATE':
         song_update = SongUpdate(data)

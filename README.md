@@ -1,65 +1,44 @@
-# monstercatFM
-Unofficial Async shitty API wrapper to get information about the monstercat live stream using [TheAkio's website (MCTL)](https://mctl.io/) and [aiohttp](https://github.com/aio-libs/aiohttp)<br>
-I'm a python beginner, I don't really know what I'm doing, your contributions are gladly accepted.<br><br>
+# listenmoe
+Unofficial python3 API wrapper to get information about the listen.moe live stream using aiohttp.<br><br>
 ## Installation
 ### Using pip
 ```
-pip install monstercatFM
+pip install listenmoe
 ```
 ### Using git
 ```
-pip install git+https://github.com/Zenrac/monstercatFM
+pip install git+https://github.com/Zenrac/listenmoe
 ```
 
 ### Requirements: <br>
 - Python3+<br>
 - [aiohttp](https://github.com/aio-libs/aiohttp) <br>
 - asyncio<br>
-- bs4
 ## Examples: <br>
 Handler to get the current song forever<br>
 ```py
+import listenmoe
 import asyncio
-from monstercatFM import monstercat
 
-async def hand(msg):
-    print("New song : {} by {}".format(msg[0], msg[1]))  
+async def hand(self, msg):
+    if msg.type == listen.message.SONG_INFO:
+        self.now = msg
+    else:
+        self.now = msg.raw
 
-mc = monstercat.Client() # Can specify a loop if needed
-
-mc.register_handler(hand)
-to_run = mc.start()
-mc.loop.run_until_complete(to_run)
+kp = listen.client.Client(loop=Optional, aiosession=OptionalToo)
+kp.register_handler(self.handkpop)
+task = asyncio.ensure_future(kp.start())
 ```
-Gets the current song only<br>
+To get kpop updates, use kpop=True in Client.
 ```py
-from monstercatFM import monstercat
-
-mc = monstercat.Client() # Can specify a loop if needed
-
-to_run = mc.get_current_song()
-msg = mc.loop.run_until_complete(to_run)
-
-print("New song : {} by {}".format(msg[0], msg[1])) 
+listen.client.Client(loop=Optional, aiosession=OptionalToo, kpop=True)
 ```
-Gets old already played tracks <br>
-```py
-from monstercatFM import monstercat
 
-requested_tracks = 50
+## Credits
 
-mc = monstercat.Client() # Can specify a loop if needed
-
-to_run = mc.get_old_tracks(requested_tracks)
-msg = mc.loop.run_until_complete(to_run)
-
-for i, song in enumerate(msg, start=1):
-    print("{} - {} by {}".format(i, song[0], song[1])) 
-```
-#### Notes:
-- If the loop is already running, replace ```run_until_complete(to_run)``` with <br>
-```mc.loop.create_task(to_run)```<br>
-- Value accepted to get old tracks are : `15, 25, 50, 100` (default is `15`)
+- [Listen from Yarn](https://github.com/Yarn/Listen) <br>
+- [Lavalink.py from Devoxin](https://github.com/Devoxin/Lavalink.py) <br>
 
 ## License
 
