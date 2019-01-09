@@ -28,7 +28,7 @@ async def hand(self, msg):
 
 moe = listenmoe.client.Client(loop=Optional, aiosession=OptionalToo)
 moe.register_handler(self.hand)
-task = asyncio.ensure_future(moe.start())
+asyncio.ensure_future(moe.start())
 ```
 To get kpop updates, use `kpop=True` in Client.
 ```py
