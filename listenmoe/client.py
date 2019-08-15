@@ -9,15 +9,15 @@ log = logging.getLogger('listenmoe')
 
 
 class Client():
-    def __init__(self, loop=None, aiosession=None, kpop: bool = False):
+    def __init__(self, loop=None, aiosession=None, kpop: bool = False, url=None):
         self._headers = {
             "User-Agent": "listenmoe (https://github.com/Zenrac/listenmoe)",
             "Content-Type": "application/json",
             "Accept": "application/vnd.listen.v4+json",
             "library": "kpop" if kpop else "jpop",
         }
-        self.url = 'wss://listen.moe/kpop/gateway' if kpop \
-            else 'wss://listen.moe/gateway'
+        self.url = ('wss://listen.moe/kpop/gateway_v2' if kpop \
+                else 'wss://listen.moe/gateway_v2') if not url else url
         self.handler = None
         self._loop = loop or asyncio.get_event_loop()
         self._ws = None
